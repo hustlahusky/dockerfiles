@@ -1,0 +1,19 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+entryPoints:
+  web:
+    address: :80
+
+  websecure:
+    address: :443
+
+api:
+  insecure: true
+  dashboard: true
+
+providers:
+  docker:
+    defaultRule: Host(`{{ normalize .Name }}.docker.localhost`)
+    exposedByDefault: true
