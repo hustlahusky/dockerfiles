@@ -16,4 +16,4 @@ api:
 providers:
   docker:
     defaultRule: Host(`{{ normalize .Name }}.docker.localhost`)
-    exposedByDefault: true
+    exposedByDefault: false
