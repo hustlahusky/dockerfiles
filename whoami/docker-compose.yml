@@ -2,6 +2,7 @@ version: '3.9'
 
 services:
   whoami:
+    restart: unless-stopped
     image: traefik/whoami
     labels:
       - 'traefik.enable=true'
