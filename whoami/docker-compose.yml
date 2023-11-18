@@ -6,3 +6,11 @@ services:
     image: traefik/whoami
     labels:
       - 'traefik.enable=true'
+    networks:
+      - default
+      - traefik
+
+networks:
+  traefik:
+    name: traefik
+    external: true

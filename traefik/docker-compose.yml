@@ -1,16 +1,32 @@
+# Reference: https://docs.docker.com/compose/compose-file/compose-file-v3/
+
 version: '3.9'
 
 services:
   traefik:
-    image: traefik:2.10
+    restart: unless-stopped
+    image: traefik:${TRAEFIK_VERSION:-2.10}
+    command:
+      - '--entrypoints.web.address=:80'
+      - '--entrypoints.websecure.address=:443'
+      - '--api.dashboard=true'
+      - '--api.insecure=true'
+      - '--providers.docker.network=${TRAEFIK_NETWORK:-traefik}'
+      - '--providers.docker.exposedbydefault=false'
+      - '--providers.docker.defaultrule=Host(`{{ normalize .Name }}.docker.localhost`)'
     volumes:
       - type: bind
         source: /var/run/docker.sock
         target: /var/run/docker.sock
         read_only: true
-      - type: bind
-        source: traefik.yml
-        target: /etc/traefik/traefik.yml
-        read_only: true
-    network_mode: host
-    restart: unless-stopped
+    ports:
+      - ${TRAEFIK_HTTP_PORT:-80}:80
+      - ${TRAEFIK_HTTPS_PORT:-443}:443
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.services.traefik-dashboard.loadbalancer.server.port=8080'
+      - 'traefik.http.routers.traefik-dashboard.rule=Host(`traefik.localhost`)'
+
+networks:
+  default:
+    name: ${TRAEFIK_NETWORK:-traefik}

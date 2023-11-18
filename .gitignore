@@ -9,46 +9,16 @@
 *.zip
 *.vi
 *~
-*.lock
-!**/yarn.lock
-!**/composer.lock
-!**/symfony.lock
-
-# OS or Editor folders
+*.bak
 .DS_Store
 ._*
 Thumbs.db
 .cache
-.project
-.settings
-.tmproj
-*.esproj
-nbproject
-*.sublime-project
-*.sublime-workspace
-.idea
-.phpstorm.meta.php
-*.komodoproject
-.komodotools
-.atom
-.vscode
-.directory
-*.sql
-*.tar
-*.tar.gz
-*.tar.bz
-*.htaccess
-*.htpasswd
 
 # Dotenv
 .env
 .env.*
-!.env.dist
-
-# Dependencies
-vendor
-node_modules
-bower_components
+!.env.example
 
 # Project folders and files to ignore
 docker-compose.override.yml
